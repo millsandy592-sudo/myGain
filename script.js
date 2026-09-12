@@ -58,7 +58,6 @@ const localWithdrawalSettings = {
 const customDepositAmount = document.querySelector('[data-custom-deposit-amount]');
 let depositStep = 'member-details';
 let toastTimer;
-const requestKey = 'northstarPaymentRequests';
 const settingsKey = 'northstarAdminSettings';
 const notificationsKey = 'northstarNotifications';
 const accountsKey = 'northstarDepositAccounts';
@@ -66,7 +65,7 @@ const infoKey = 'northstarMemberInformation';
 const adminSettings = { accountName: 'MyGain Investments', routingNumber: '021000021', accountNumber: '•••• 4829', contact: 'support@mygain.test', ...JSON.parse(localStorage.getItem(settingsKey) || '{}') };
 const defaultDepositAccounts = [{ id: 'default-account', accountName: adminSettings.accountName, routingNumber: adminSettings.routingNumber, accountNumber: adminSettings.accountNumber, contact: adminSettings.contact }];
 const depositAccounts = JSON.parse(localStorage.getItem(accountsKey) || 'null') || defaultDepositAccounts;
-let paymentRequests = JSON.parse(localStorage.getItem(requestKey) || '[]');
+let paymentRequests = [];
 let approvedWithdrawals = JSON.parse(localStorage.getItem('northstarApprovedWithdrawals') || '[]');
 let notifications = JSON.parse(localStorage.getItem(notificationsKey) || '[]');
 let memberInformation = JSON.parse(localStorage.getItem(infoKey) || '[]');
@@ -336,11 +335,20 @@ function renderNotifications() {
     mobileMenuToggle.addEventListener('click', () => {
       const open = document.body.classList.toggle('mobile-menu-open');
       mobileMenuToggle.setAttribute('aria-expanded', String(open));
+      mobileMenuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
-    document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => {
+    const closeMobileMenu = () => {
       document.body.classList.remove('mobile-menu-open');
       mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    }));
+      mobileMenuToggle.setAttribute('aria-label', 'Open menu');
+    };
+    document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', closeMobileMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && document.body.classList.contains('mobile-menu-open')) closeMobileMenu();
+    });
+    document.addEventListener('click', (event) => {
+      if (document.body.classList.contains('mobile-menu-open') && !event.target.closest('.sidebar') && !event.target.closest('[data-mobile-menu-toggle]')) closeMobileMenu();
+    });
   }
   notificationList.innerHTML = visible.slice().reverse().map((notice) => `<div class="member-notice"><span class="notice-icon">✦</span><span><strong>${notice.audience === 'all' ? 'MyGain update' : `Level ${notice.audience} update`}</strong><small>${notice.message}</small></span></div>`).join('');
 }
@@ -778,11 +786,6 @@ function closeWithdraw() {
 document.querySelector('[data-open-withdraw]').addEventListener('click', () => {
   document.querySelector('#withdraw-account-name').value = currentMember?.withdrawalAccountName || '';
   document.querySelector('#withdraw-account-number').value = currentMember?.withdrawalAccountNumber || '';
-  if (latestEarnings && !latestEarnings.withdrawalEligible) {
-    document.querySelector('[data-withdraw-status]').textContent = `Withdrawals unlock at ${formatCurrency(latestEarnings.withdrawalThreshold ?? 250)} for Level ${latestEarnings.highestLevel || 1}.`;
-  } else if (latestEarnings?.nextWithdrawalAt && Date.now() < latestEarnings.nextWithdrawalAt) {
-    document.querySelector('[data-withdraw-status]').textContent = `Next withdrawal available after ${new Date(latestEarnings.nextWithdrawalAt).toLocaleString()}.`;
-  }
   withdrawModal.hidden = false;
 });
 document.querySelector('[data-close-withdraw]').addEventListener('click', closeWithdraw);
@@ -831,48 +834,13 @@ document.querySelector('[data-submit-withdraw]').addEventListener('click', async
   const accountNumber = document.querySelector('#withdraw-account-number').value.trim();
   const status = document.querySelector('[data-withdraw-status]');
   if (amount < 1 || !accountName || !accountNumber) { status.textContent = 'Enter the account name and account number.'; return; }
-  if (!latestEarnings && investment) {
-    const level = Number(investment.level);
-    const threshold = localWithdrawalSettings.thresholds[level] ?? 250;
-    const withdrawals = paymentRequests.filter((request) => request.type === 'withdrawal' && ['approved', 'pending'].includes(request.status));
-    const pendingWithdrawals = withdrawals.filter((request) => request.status === 'pending').reduce((total, request) => total + Number(request.amount || 0), 0);
-    const localPortfolio = investment.amount + investmentProfit() - approvedWithdrawals.reduce((total, request) => total + Number(request.amount || 0), 0) - pendingWithdrawals;
-    if (localPortfolio < threshold) { status.textContent = `Withdrawals unlock at ${formatCurrency(threshold)} for Level ${investment.level}.`; return; }
-    const dayStart = new Date();
-    dayStart.setHours(6, 0, 0, 0);
-    if (dayStart.getTime() > Date.now()) dayStart.setDate(dayStart.getDate() - 1);
-    const withdrawalsToday = withdrawals.filter((request) => Number(request.createdAt || 0) >= dayStart.getTime()).length;
-    const limit = localWithdrawalSettings.limits[level] ?? 1;
-    if (withdrawalsToday >= limit) { status.textContent = `You have reached today's withdrawal limit of ${limit}.`; return; }
-    const interval = localWithdrawalSettings.intervals[level] ?? 1;
-    const latestWithdrawal = withdrawals.reduce((latest, request) => Math.max(latest, Number(request.createdAt || 0)), 0);
-    const nextWithdrawalAt = latestWithdrawal + interval * 86400000;
-    if (latestWithdrawal && Date.now() < nextWithdrawalAt) { status.textContent = `Next withdrawal available after ${new Date(nextWithdrawalAt).toLocaleString()}.`; return; }
-  }
-  if (latestEarnings && !latestEarnings.withdrawalEligible) {
-    status.textContent = `Withdrawals unlock at ${formatCurrency(latestEarnings.withdrawalThreshold ?? 250)} for Level ${latestEarnings.highestLevel || 1}.`;
-    return;
-  }
-  if (latestEarnings?.withdrawalsToday >= latestEarnings.withdrawalLimit) {
-    status.textContent = `You have reached today's withdrawal limit of ${latestEarnings.withdrawalLimit}.`;
-    return;
-  }
-  if (latestEarnings?.nextWithdrawalAt && Date.now() < latestEarnings.nextWithdrawalAt) {
-    status.textContent = `Next withdrawal available after ${new Date(latestEarnings.nextWithdrawalAt).toLocaleString()}.`;
-    return;
-  }
   const request = { id: `withdrawal-${Date.now()}`, type: 'withdrawal', amount, accountName, accountNumber, status: 'pending', createdAt: Date.now() };
   const token = sessionStorage.getItem('mygainSessionToken');
-  if (token) {
-    const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) { status.textContent = result.error || 'Unable to submit withdrawal.'; return; }
-    await loadMemberPaymentRequests();
-  } else {
-    paymentRequests.push(request);
-    localStorage.setItem(requestKey, JSON.stringify(paymentRequests));
-    renderPendingRequests();
-  }
+  if (!token) { status.textContent = 'Please sign in again before submitting a withdrawal.'; return; }
+  const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) { status.textContent = result.error || 'Unable to submit withdrawal.'; return; }
+  await loadMemberPaymentRequests();
   status.textContent = 'Withdrawal submitted for admin approval.';
 });
 setInterval(() => loadMemberPaymentRequests().catch(() => {}), 2000);
@@ -963,32 +931,28 @@ confirmButton.addEventListener('click', async () => {
   }
   const request = { id: `deposit-${Date.now()}`, type: 'deposit', amount: selectedDeposit, depositAccount: activeDepositAccount, accountName, accountNumber, status: 'pending', createdAt: Date.now() };
   const token = sessionStorage.getItem('mygainSessionToken');
+  if (!token) {
+    statusMessage.textContent = 'Please sign in again before submitting a deposit.';
+    return;
+  }
   if (paymentRequests.some((item) => item.type === 'deposit' && item.status === 'pending')) {
     statusMessage.textContent = 'Your current deposit is waiting for admin approval before another deposit can be made.';
     return;
   }
   confirmButton.disabled = true;
   confirmButton.textContent = 'Submitting...';
-  if (token) {
-    try {
-      const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
-      if (!response.ok) {
-        const result = await response.json().catch(() => ({}));
-        throw new Error(result.error || 'Deposit request failed');
-      }
-      const result = await response.json();
-      paymentRequests.push(result.request || request);
-      renderPendingRequests();
-    } catch (error) {
-      confirmButton.disabled = false;
-      updateConfirmLabel();
-      statusMessage.textContent = error.message || 'Unable to submit the deposit. Please try again.';
-      return;
+  try {
+    const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+      throw new Error(result.error || 'Deposit request failed');
     }
-  } else {
-    paymentRequests.push(request);
-    localStorage.setItem(requestKey, JSON.stringify(paymentRequests));
-    renderPendingRequests();
+    await loadMemberPaymentRequests();
+  } catch (error) {
+    confirmButton.disabled = false;
+    updateConfirmLabel();
+    statusMessage.textContent = error.message || 'Unable to submit the deposit. Please try again.';
+    return;
   }
   depositStep = 'complete';
   modalTitle.textContent = 'Deposit submitted';

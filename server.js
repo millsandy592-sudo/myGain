@@ -742,18 +742,6 @@ async function api(request, response, pathname) {
       const pendingDeposit = db.paymentRequests.find((item) => item.memberId === member.id && item.type === 'deposit' && item.status === 'pending');
       if (pendingDeposit) return json(response, 409, { error: 'Complete the current deposit approval before starting another deposit.' });
     }
-    if (body.type === 'withdrawal') {
-      const amount = Number(body.amount);
-      const earnings = earningsForMember(db, member);
-      if (!Number.isFinite(amount) || amount <= 0) return json(response, 400, { error: 'Enter a valid withdrawal amount.' });
-      if (!earnings.withdrawalEligible) {
-        const requirement = earnings.withdrawalThreshold ? `GHS ${earnings.withdrawalThreshold.toFixed(2)} for Level ${earnings.highestLevel}` : 'the Level 1 requirement';
-        return json(response, 400, { error: `Withdrawals unlock after your portfolio reaches ${requirement}.` });
-      }
-      if (earnings.withdrawalsToday >= earnings.withdrawalLimit) return json(response, 400, { error: `You have reached today's withdrawal limit of ${earnings.withdrawalLimit} for Level ${earnings.highestLevel}. Try again after 6:00 AM.` });
-      if (earnings.nextWithdrawalAt && Date.now() < earnings.nextWithdrawalAt) return json(response, 400, { error: `Withdrawals for Level ${earnings.highestLevel} are available every ${earnings.withdrawalInterval} day${earnings.withdrawalInterval === 1 ? '' : 's'}. Try again after ${new Date(earnings.nextWithdrawalAt).toLocaleString('en-GH')}.` });
-      if (amount > earnings.withdrawable) return json(response, 400, { error: `You can withdraw up to GHS ${earnings.withdrawable.toFixed(2)} from your portfolio.` });
-    }
     const accountName = boundedString(body.accountName, 120);
     const accountNumber = boundedString(body.accountNumber, 80);
     const amount = finiteNumber(body.amount, { min: 0.01, max: 100000000 });
