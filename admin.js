@@ -125,6 +125,8 @@ adminLoginForm.addEventListener('submit', async (event) => {
   loadPaymentRequests().catch(() => {});
   loadVaultDashboard().catch(() => {});
   loadMembers().catch(() => {});
+  loadSettingsIntoForms().catch(() => {});
+  loadDepositAccounts().catch(() => {});
   setInterval(() => loadPaymentRequests().catch(() => {}), 2000);
   setInterval(() => loadVaultDashboard().catch(() => {}), 5000);
   setInterval(() => loadMembers().catch(() => {}), 5000);
@@ -135,6 +137,9 @@ if (sessionStorage.getItem('mygainAdminToken')) {
   adminApp.hidden = false;
   loadPaymentRequests().catch(() => {});
   loadVaultDashboard().catch(() => {});
+  loadMembers().catch(() => {});
+  loadSettingsIntoForms().catch(() => {});
+  loadDepositAccounts().catch(() => {});
   setInterval(() => loadPaymentRequests().catch(() => {}), 2000);
   setInterval(() => loadVaultDashboard().catch(() => {}), 5000);
 }
@@ -512,6 +517,12 @@ async function loadDepositAccounts() {
   if (Array.isArray(result.accounts)) {
     depositAccounts = result.accounts;
     localStorage.setItem(accountsKey, JSON.stringify(depositAccounts));
+    const account = depositAccounts[0];
+    if (account) {
+      Object.entries(account).forEach(([key, value]) => {
+        if (contactForm.elements[key]) contactForm.elements[key].value = value;
+      });
+    }
     renderDepositAccounts();
   }
 }
@@ -559,11 +570,18 @@ document.querySelector('[data-password-form]').addEventListener('submit', async 
 });
 const contactForm = document.querySelector('[data-contact-form]');
 Object.entries(adminSettings).forEach(([key, value]) => { if (contactForm.elements[key]) contactForm.elements[key].value = value; });
-contactForm.addEventListener('submit', (event) => {
+contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const values = Object.fromEntries(new FormData(contactForm));
+  const response = await adminApi('/api/admin/settings', { method: 'PATCH', body: JSON.stringify(values) });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    document.querySelector('[data-contact-status]').textContent = result.error || 'Could not save deposit details.';
+    return;
+  }
   localStorage.setItem(settingsKey, JSON.stringify(values));
   document.querySelector('[data-contact-status]').textContent = 'Deposit details saved.';
+  await loadDepositAccounts();
   showToast('Member deposit instructions updated.');
 });
 renderProducts();

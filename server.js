@@ -896,8 +896,21 @@ async function api(request, response, pathname) {
     const backgroundImageUrl = body.backgroundImageUrl !== undefined ? safeImageUrl(body.backgroundImageUrl, 1000) : (db.settings.backgroundImageUrl || '');
     const adminBackgroundImageUrl = body.adminBackgroundImageUrl !== undefined ? safeImageUrl(body.adminBackgroundImageUrl, 1000) : (db.settings.adminBackgroundImageUrl || '');
     const timeZone = body.timeZone !== undefined ? boundedString(body.timeZone, 100) || DEFAULT_TIME_ZONE : (db.settings.timeZone || DEFAULT_TIME_ZONE);
+    const contactDetails = ['accountName', 'routingNumber', 'accountNumber', 'contact'].every((key) => body[key] !== undefined)
+      ? {
+        accountName: boundedString(body.accountName, 160),
+        routingNumber: boundedString(body.routingNumber, 80),
+        accountNumber: boundedString(body.accountNumber, 100),
+        contact: boundedString(body.contact, 160),
+      }
+      : null;
+    if (contactDetails && Object.values(contactDetails).some((value) => !value)) return json(response, 400, { error: 'All deposit details are required.' });
     try { calendarDate(Date.now(), timeZone); } catch { return json(response, 400, { error: 'Use a valid application time zone.' }); }
     db.settings = { ...db.settings, dailyProfitPercent, referralBonusAmount, withdrawalLimits, withdrawalThresholds, withdrawalIntervals, referralBonuses, backgroundImageUrl, adminBackgroundImageUrl, timeZone };
+    if (contactDetails) {
+      const account = { id: db.depositAccounts[0]?.id || 'default-account', ...contactDetails };
+      db.depositAccounts = db.depositAccounts.length ? [account, ...db.depositAccounts.slice(1)] : [account];
+    }
     // dailyProfitPercent is only used as the manual/testing fallback rate for
     // products that have no live market ticker attached.
     db.products = db.products.map((product) => (product.tickerSymbol ? product : { ...product, dailyRate: dailyProfitPercent, manualTestRate: dailyProfitPercent, rateSource: 'manual' }));

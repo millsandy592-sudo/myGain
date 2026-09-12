@@ -120,7 +120,7 @@ function renderVaults(state) {
 async function loadVaults() {
     if (isDashboardHome) return;
   const token = sessionStorage.getItem('mygainSessionToken');
-  if (!token || !(location.port === '3000' || location.port === '')) return;
+  if (!token) return;
   const response = await fetch('/api/vaults/today', { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' });
   if (!response.ok) return;
   const result = await response.json();
@@ -314,7 +314,7 @@ function renderPendingRequests() {
 
 async function loadMemberPaymentRequests() {
   const token = sessionStorage.getItem('mygainSessionToken');
-  if (!token || !(location.port === '3000' || location.port === '')) return;
+  if (!token) return;
   const response = await fetch('/api/me/payment-requests', { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' });
   if (!response.ok) return;
   const result = await response.json();
@@ -355,7 +355,6 @@ function renderMemberInformation() {
 }
 
 async function syncLiveState() {
-  if (!(location.port === '3000' || location.port === '')) return;
   try {
     const token = sessionStorage.getItem('mygainSessionToken');
     const response = await fetch(token ? '/api/me/live-state' : '/api/live-state', { headers: token ? { Authorization: `Bearer ${token}` } : {}, cache: 'no-store' });
@@ -864,7 +863,7 @@ document.querySelector('[data-submit-withdraw]').addEventListener('click', async
   }
   const request = { id: `withdrawal-${Date.now()}`, type: 'withdrawal', amount, accountName, accountNumber, status: 'pending', createdAt: Date.now() };
   const token = sessionStorage.getItem('mygainSessionToken');
-  if (location.port === '3000' && token) {
+  if (token) {
     const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
     const result = await response.json().catch(() => ({}));
     if (!response.ok) { status.textContent = result.error || 'Unable to submit withdrawal.'; return; }
@@ -970,7 +969,7 @@ confirmButton.addEventListener('click', async () => {
   }
   confirmButton.disabled = true;
   confirmButton.textContent = 'Submitting...';
-  if (location.port === '3000' && token) {
+  if (token) {
     try {
       const response = await fetch('/api/payment-requests', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(request) });
       if (!response.ok) {
