@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyGain | Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body class="profile-page">
+  <main class="profile-shell">
+    <header class="profile-header">
+      <a class="brand" href="index.html" aria-label="Return to MyGain dashboard"><span class="brand-mark">M</span><span>My Profile</span></a>
+      <a class="profile-back" href="index.html">Back to dashboard</a>
+    </header>
+    <section class="profile-layout">
+      <div class="profile-intro">
+        <p class="eyebrow">Account settings</p>
+        <h1>Your profile</h1>
+        <p>Keep your member identity and withdrawal destination up to date.</p>
+        <div class="profile-member-card"><span class="avatar" data-profile-avatar>JD</span><div><strong data-profile-member>Member account</strong><a class="profile-phone-link" data-profile-phone aria-label="Call your phone number"></a></div></div>
+      </div>
+      <form class="profile-form" data-profile-form>
+        <label for="profile-nickname">Nickname</label>
+        <input id="profile-nickname" name="nickname" type="text" maxlength="40" placeholder="Your nickname" required>
+        <label for="profile-account-name">Withdrawal account name</label>
+        <input id="profile-account-name" name="withdrawalAccountName" type="text" maxlength="80" placeholder="Name on account" required>
+        <label for="profile-account-number">Withdrawal account number</label>
+        <input id="profile-account-number" name="withdrawalAccountNumber" type="text" maxlength="40" placeholder="Bank account number" required>
+        <button class="profile-save" type="submit">Save profile <span>→</span></button>
+        <p class="profile-status" data-profile-status aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script src="profile.js?v=1"></script>
+</body>
+</html>

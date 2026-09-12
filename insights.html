@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyGain | Insights</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .insights-page { max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; }
+    .insights-back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; text-decoration: none; font-weight: 600; }
+    .insights-tabs { display: flex; gap: 8px; margin: 22px 0 26px; }
+    .insights-tab { padding: 9px 16px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); font-weight: 700; font-size: 12px; color: var(--muted); }
+    .insights-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .insights-hero { background: var(--ink); color: #fff; border-radius: 22px; padding: 28px; box-shadow: var(--shadow); }
+    .insights-hero small { color: rgba(255,255,255,.6); text-transform: uppercase; font-size: 11px; letter-spacing: .06em; }
+    .insights-hero h1 { margin: 8px 0 0; font-family: 'Space Grotesk'; font-size: clamp(30px, 5vw, 44px); letter-spacing: -.03em; }
+    .insights-hero p { margin: 10px 0 0; color: rgba(255,255,255,.7); font-size: 13px; max-width: 46ch; }
+    .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 24px; }
+    .insights-card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); }
+    .insights-card small { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .insights-card strong { display: block; margin-top: 6px; font-family: 'Space Grotesk'; font-size: 20px; }
+    .insights-list { margin-top: 26px; display: grid; gap: 10px; }
+    .insights-row { display: flex; justify-content: space-between; align-items: center; background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; font-size: 13px; }
+    .insights-row strong { font-family: 'Space Grotesk'; }
+    .insights-note { margin-top: 22px; color: var(--muted); font-size: 12px; }
+    .insights-empty { margin-top: 40px; color: var(--muted); text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="insights-page">
+    <a class="insights-back" href="/">← Back to overview</a>
+    <div class="insights-tabs">
+      <a class="insights-tab" data-tab="returns" href="insights.html?view=returns">Daily return</a>
+      <a class="insights-tab" data-tab="profit" href="insights.html?view=profit">Profit</a>
+      <a class="insights-tab" data-tab="portfolio" href="insights.html?view=portfolio">Portfolio value</a>
+    </div>
+    <div data-insights-content>
+      <p class="insights-empty">Loading your numbers…</p>
+    </div>
+  </div>
+  <script src="insights.js?v=1"></script>
+</body>
+</html>

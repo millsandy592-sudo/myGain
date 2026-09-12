@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyGain | My Team</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="team.css">
+</head>
+<body class="team-page">
+  <main class="team-shell">
+    <header class="team-header">
+      <a class="brand" href="index.html" aria-label="Return to MyGain dashboard"><span class="brand-mark">M</span><span>My Team</span></a>
+      <a class="team-back" href="index.html">Back to dashboard</a>
+    </header>
+    <section class="team-intro">
+      <p class="eyebrow">Referral network</p>
+      <h1>Build your team.</h1>
+      <p>Share your referral link. You earn 10% of your direct team members' settled daily profit.</p>
+    </section>
+    <section class="team-share panel-light">
+      <div><p class="label">Your referral link</p><strong data-team-code>Loading...</strong><small data-team-link></small></div>
+      <button class="profile-save team-copy" type="button" data-copy-team-link>Copy link <span>↗</span></button>
+      <p class="team-status" data-team-status aria-live="polite"></p>
+    </section>
+    <section class="team-stats">
+      <div class="team-stat panel-light"><small>Team members</small><strong data-team-count>0</strong></div>
+      <div class="team-stat panel-light"><small>Team profit today</small><strong data-team-profit>GHS 0.00</strong></div>
+      <div class="team-stat panel-light"><small>Your daily commission</small><strong data-team-commission>GHS 0.00</strong></div>
+    </section>
+    <section class="team-list-section">
+      <div class="section-heading"><div><p class="eyebrow">Direct referrals</p><h2>Everyone on your team</h2></div></div>
+      <div class="team-list" data-team-list></div>
+      <p class="team-empty" data-team-empty hidden>No one has registered with your referral link yet.</p>
+    </section>
+  </main>
+  <script src="team.js?v=1"></script>
+</body>
+</html>

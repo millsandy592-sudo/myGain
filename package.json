@@ -1,0 +1,12 @@
+{
+  "name": "mygain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MyGain investment platform backend",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}

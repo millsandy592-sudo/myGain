@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MyGain personal investing dashboard">
+  <title>MyGain | Invest with intention</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="auth-screen" data-auth-screen>
+    <div class="auth-visual">
+      <a class="brand auth-brand" href="#top" aria-label="MyGain home"><span class="brand-mark">M</span><span>MyGain</span></a>
+      <div class="auth-visual-copy">
+        <p class="eyebrow auth-eyebrow">Build with intention</p>
+        <h1>Your money has<br><em>a direction.</em></h1>
+        <p>Invest thoughtfully, track your progress, and make room for what matters next.</p>
+      </div>
+      <div class="auth-orbit" aria-hidden="true"><span></span><span></span><span></span><b>↗</b></div>
+      <div class="auth-quote"><span>“</span><p>Small, consistent steps<br>make a meaningful future.</p></div>
+    </div>
+    <div class="auth-panel">
+      <div class="auth-panel-top"><span class="auth-mobile-brand">MyGain</span><span>Already a member? <button type="button" class="auth-link" data-auth-mode="login">Log in</button></span></div>
+      <div class="auth-form-wrap">
+        <p class="eyebrow">Welcome to MyGain</p>
+        <h2 data-auth-title>Sign in to your account</h2>
+        <p class="auth-intro" data-auth-intro>Keep your goals moving in the right direction.</p>
+        <form class="auth-form" data-auth-form novalidate>
+          <label for="member-phone">Phone number</label>
+          <input id="member-phone" type="tel" placeholder="5551234567" autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" minlength="10" maxlength="10" aria-describedby="phone-error" required>
+          <small class="field-error" id="phone-error" data-phone-error></small>
+          <label for="member-password">Password</label>
+          <div class="password-field"><input id="member-password" type="password" placeholder="12+ characters, upper, lower, number" autocomplete="current-password" minlength="12" aria-describedby="password-error" required><button type="button" aria-label="Show password" data-toggle-password>Show</button></div>
+          <small class="field-error" id="password-error" data-password-error></small>
+          <label for="referral-code" data-referral-label hidden>Referral code <span class="optional-auth">optional</span></label>
+          <input id="referral-code" type="text" placeholder="e.g. M4821" autocomplete="off" data-referral-input hidden>
+          <div class="auth-options"><label class="check-label"><input type="checkbox"> <span>Remember me</span></label><button class="auth-link" type="button" data-feedback="Password reset link requested.">Forgot password?</button></div>
+          <button class="auth-submit" type="submit" data-auth-submit>Log in <span>→</span></button>
+        </form>
+        <p class="auth-switch"><span data-auth-switch-copy>New to MyGain?</span> <button type="button" class="auth-link" data-auth-mode="signup">Create an account</button></p>
+        <p class="auth-status" data-auth-status aria-live="polite"></p>
+      </div>
+      <p class="auth-legal">By continuing, you agree to our <a href="#terms">Terms</a> and <a href="#privacy">Privacy Policy</a>.<br><a class="admin-indicator" href="admin.html" aria-label="Administrator access">Admin access</a></p>
+    </div>
+  </section>
+  <div class="app-shell" data-app hidden aria-hidden="true">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="MyGain home">
+        <span class="brand-mark">M</span>
+        <span>MyGain</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-item active" href="/dashboard"><span class="nav-icon">◈</span>Overview</a>
+        <a class="nav-item" href="#portfolio"><span class="nav-icon">▥</span>Portfolio</a>
+        <a class="nav-item" href="/dashboard/vaults"><span class="nav-icon">🔐</span>Vaults</a>
+        <a class="nav-item" href="/dashboard/notices"><span class="nav-icon">📢</span>Notices</a>
+        <a class="nav-item" href="/dashboard/transactions"><span class="nav-icon">💳</span>Transactions</a>
+        <a class="nav-item" href="#goals"><span class="nav-icon">◎</span>Goals</a>
+        <a class="nav-item" href="/team"><span class="nav-icon">♧</span>Team</a>
+        <a class="nav-item" href="/profile"><span class="nav-icon">◉</span>Profile</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a class="nav-item" href="#help" data-feedback="Help center is ready for you."><span class="nav-icon">?</span>Help center</a>
+        <button class="profile-card" type="button" aria-label="Open profile" data-open-profile>
+          <span class="avatar">JD</span>
+          <span class="profile-copy"><strong data-profile-display-name>Jordan Davis</strong><small>Personal account</small></span>
+          <span class="profile-more">•••</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="top">
+      <header class="topbar">
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-mobile-menu-toggle>☰ <span>Menu</span></button>
+        <div>
+          <p class="eyebrow">Monday, September 8, 2025</p>
+          <h1>Good morning, <span data-member-display-name>Jordan</span> <span aria-hidden="true">✦</span></h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" type="button" aria-label="Notifications" data-feedback="You are all caught up."><span class="notification-dot"></span>♧</button>
+          <button class="withdraw-money" type="button" data-open-withdraw>Withdraw</button>
+          <button class="add-money" type="button" data-open-modal><span>+</span> Add money</button>
+          <button class="withdraw-money" type="button" data-member-logout>Log out</button>
+        </div>
+      </header>
+
+      <section class="member-referral panel-light" data-member-referral hidden>
+        <div><p class="label">Member identity</p><h2>MyGain member number</h2><p>Share your referral code with people you invite.</p></div>
+        <div class="member-referral-code"><small>Member number / referral code</small><strong data-member-number>----</strong><button type="button" data-copy-referral>Copy code</button></div>
+        <div class="referral-bonus"><small>Referral bonus</small><strong data-referral-bonus>GHS 0.00</strong></div>
+      </section>
+
+      <section class="profile-summary panel-light" data-profile-summary hidden>
+        <div><p class="label">My profile</p><h2 data-profile-summary-name>Nickname not set</h2><p data-profile-summary-account>Withdrawal account not set</p></div>
+        <button class="text-button" type="button" data-open-profile>Edit profile <span>→</span></button>
+      </section>
+
+      <section class="overview-grid" id="overview" aria-label="Portfolio overview">
+        <article class="balance-panel panel-dark">
+          <div class="panel-heading">
+            <div>
+              <p class="label light-label">Total portfolio value</p>
+              <p class="balance" data-balance>GHS 0.00</p>
+            </div>
+            <button class="more-button light-more" type="button" aria-label="More portfolio options" data-feedback="Portfolio options opened.">•••</button>
+          </div>
+          <div class="balance-footer">
+            <span class="gain-badge" data-today-earnings>Today +GHS 0.00</span>
+            <span class="muted-light" data-daily-payout>Daily payout GHS 0.00</span>
+            <span class="muted-light" data-next-payout>Open vaults to receive profit</span>
+            <span class="muted-light" data-portfolio-rate>0% daily</span>
+            <span class="muted-light" data-portfolio-level>No active level</span>
+            <span class="muted-light" data-year-gain>+GHS 0.00 this year</span>
+            <span class="muted-light" data-available-balance>Withdrawable GHS 0.00</span>
+          </div>
+          <div class="stat-trio" role="list" aria-label="Tap a metric for details">
+            <a class="stat-trio-card tappable-stat is-live" href="insights.html?view=returns" role="listitem">
+              <small><span class="live-pulse"></span>Daily return</small>
+              <strong data-stat-daily-rate>0.00%</strong>
+              <span class="tap-hint">View breakdown →</span>
+            </a>
+            <a class="stat-trio-card tappable-stat is-live" href="insights.html?view=profit" role="listitem">
+              <small>Today's profit</small>
+              <strong data-stat-today-profit>GHS 0.00</strong>
+              <span class="tap-hint">View breakdown →</span>
+            </a>
+            <a class="stat-trio-card tappable-stat" href="insights.html?view=portfolio" role="listitem">
+              <small>Portfolio value</small>
+              <strong data-stat-portfolio-value>GHS 0.00</strong>
+              <span class="tap-hint">View breakdown →</span>
+            </a>
+          </div>
+          <div class="balance-chart" aria-label="Portfolio performance chart">
+            <svg viewBox="0 0 620 150" role="img" aria-label="Portfolio value rising over the last six months" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#9ef0ca" stop-opacity=".30"/>
+                  <stop offset="1" stop-color="#9ef0ca" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path class="chart-area" data-chart-area d="M0 150 L620 150 L0 150 Z"/>
+              <path class="chart-line" data-chart-line d="M0 150 L620 150"/>
+            </svg>
+          </div>
+          <div class="chart-labels" data-chart-labels><span>30d ago</span><span></span><span></span><span></span><span></span><span></span><span>Today</span></div>
+        </article>
+
+        <article class="allocation-panel panel-light" id="portfolio">
+          <div class="panel-heading">
+            <div>
+              <p class="label">Your allocation</p>
+              <h2>Balanced growth</h2>
+            </div>
+            <button class="more-button" type="button" aria-label="More allocation options" data-feedback="Allocation options opened.">•••</button>
+          </div>
+          <div class="allocation-body">
+            <div class="donut-wrap"><div class="donut"><strong>4</strong><span>assets</span></div></div>
+            <div class="allocation-list">
+              <div class="allocation-row"><span><i class="legend-dot dot-teal"></i>Stocks</span><strong>60%</strong></div>
+              <div class="allocation-row"><span><i class="legend-dot dot-coral"></i>Bonds</span><strong>25%</strong></div>
+              <div class="allocation-row"><span><i class="legend-dot dot-yellow"></i>Real estate</span><strong>10%</strong></div>
+              <div class="allocation-row"><span><i class="legend-dot dot-lilac"></i>Cash</span><strong>5%</strong></div>
+            </div>
+          </div>
+          <button class="text-button" type="button" data-feedback="Allocation editor is ready.">Adjust allocation <span>→</span></button>
+        </article>
+      </section>
+
+      <section class="daily-vaults panel-light dashboard-secondary" aria-labelledby="daily-vaults-title">
+        <div class="section-heading"><div><p class="label">Daily rewards</p><h2 id="daily-vaults-title">Daily Profit Vaults</h2></div><span class="pending-note" data-vault-date>Server date</span></div>
+        <div class="vault-summary"><span>Daily profit rate <strong data-vault-daily-rate>0%</strong></span><span>Opened <strong data-vault-opened-count>0 / 5</strong></span><span>Received today <strong data-vault-profit-received>GHS 0.00</strong></span><span>Remaining <strong data-vault-profit-remaining>GHS 0.00</strong></span></div>
+        <div class="vault-list" data-vault-list></div>
+        <p class="vault-status" data-vault-status aria-live="polite"></p>
+      </section>
+
+      <section class="pending-section panel-light" data-pending-section hidden>
+        <div class="section-heading"><div><p class="label">Awaiting review</p><h2>Payment requests</h2></div><span class="pending-note">Admin approval required</span></div>
+        <div class="pending-list" data-pending-list></div>
+      </section>
+
+      <section class="notification-section panel-light dashboard-secondary" data-notification-section hidden>
+        <div class="section-heading"><div><p class="label">From MyGain</p><h2>Member notices</h2></div><span class="pending-note">Admin updates</span></div>
+        <div class="notification-list" data-notification-list></div>
+      </section>
+
+      <section class="content-grid">
+        <article class="activity-panel panel-light dashboard-secondary" id="markets">
+          <div class="section-heading">
+            <div><p class="label">Your activity</p><h2>Recent transactions</h2></div>
+            <button class="text-button" type="button" data-feedback="Showing your complete transaction history.">View all <span>→</span></button>
+          </div>
+          <div class="transaction-tabs" role="tablist" aria-label="Transactions by plan"><button class="transaction-tab active" type="button" role="tab" aria-selected="true" data-transaction-plan="1">Plan 1</button><button class="transaction-tab" type="button" role="tab" aria-selected="false" data-transaction-plan="2">Plan 2</button></div>
+          <div class="transaction-page" data-transaction-page="1" role="tabpanel"><div class="transaction-list" data-transaction-list="1"></div><p class="transaction-empty" data-transaction-empty="1" hidden>No Plan 1 transactions yet.</p></div>
+          <div class="transaction-page" data-transaction-page="2" role="tabpanel" hidden><div class="transaction-list" data-transaction-list="2"></div><p class="transaction-empty" data-transaction-empty="2" hidden>No Plan 2 transactions yet.</p></div>
+        </article>
+
+        <article class="invest-panel panel-coral" id="goals">
+          <div class="invest-top"><span class="sparkle">✦</span><span class="label coral-label">Make your next move</span></div>
+          <h2>Put your money<br>to work.</h2>
+          <p>Build your future with a portfolio that grows alongside you.</p>
+          <button class="invest-button" type="button" data-open-modal>Start investing <span>→</span></button>
+          <div class="invest-decoration" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        </article>
+      </section>
+
+      <section class="dashboard-shortcuts" aria-label="Account shortcuts">
+        <a class="shortcut-card shortcut-vault" href="/dashboard/vaults"><span class="shortcut-icon">🔐</span><span><strong>Daily Profit Vaults</strong><small>Open today’s five vaults</small></span><span class="shortcut-arrow">→</span></a>
+        <a class="shortcut-card shortcut-notice" href="/dashboard/notices"><span class="shortcut-icon">📢</span><span><strong>Member Notices</strong><small data-notice-summary>View the latest updates</small></span><span class="shortcut-arrow">→</span></a>
+        <a class="shortcut-card shortcut-transactions" href="/dashboard/transactions"><span class="shortcut-icon">💳</span><span><strong>Recent Transactions</strong><small>View your account activity</small></span><span class="shortcut-arrow">→</span></a>
+      </section>
+
+      <section class="watchlist-section" aria-labelledby="watchlist-title">
+        <div class="section-heading"><div><p class="label">Admin curated</p><h2 id="watchlist-title">Available products</h2></div><button class="add-watch" type="button" aria-label="Request an asset" data-feedback="Products are published by an administrator.">Request an asset</button></div>
+        <div class="watchlist" data-product-list></div>
+        <div class="profit-summary" data-profit-summary hidden><span class="profit-icon">↗</span><span><strong data-profit-title>Your investment is earning daily</strong><small data-profit-copy></small></span><strong class="profit-total" data-profit-total></strong></div>
+        <div class="member-rate-note"><span>Daily profit rate</span><strong data-member-rate>Set by MyGain admin</strong></div>
+      </section>
+      <section class="info-feed-section" data-info-feed-section hidden>
+        <div class="section-heading"><div><p class="label">From MyGain</p><h2>Member information</h2></div><span class="pending-note">Latest updates</span></div>
+        <div class="info-feed" data-info-feed></div>
+      </section>
+      <footer class="page-footer"><span>Markets delayed by 15 minutes</span><span>FDIC insured · SIPC protected</span></footer>
+    </main>
+  </div>
+
+  <div class="side-page-backdrop" data-side-page hidden>
+    <aside class="side-page" role="dialog" aria-modal="true" aria-labelledby="side-page-title">
+      <div class="side-page-header"><div><p class="label">Dashboard view</p><h2 data-side-page-title>Portfolio</h2></div><button class="modal-close" type="button" aria-label="Close page" data-close-side-page>×</button></div>
+      <div class="side-page-content" data-side-page-content></div>
+    </aside>
+  </div>
+  <div class="modal-backdrop" data-purchase-confirmation hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="purchase-confirmation-title">
+      <button class="modal-close" type="button" aria-label="Close" data-close-purchase-confirmation>×</button>
+      <p class="label">Confirm purchase</p><h2 id="purchase-confirmation-title">Purchase this level?</h2>
+      <p class="modal-copy" data-purchase-confirmation-copy></p>
+      <div class="purchase-confirmation-actions"><button class="secondary-button" type="button" data-cancel-purchase>Cancel</button><button class="confirm-button" type="button" data-confirm-purchase>Confirm purchase</button></div>
+      <p class="modal-status" data-purchase-confirmation-status aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" data-modal hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" aria-label="Close" data-close-modal>×</button>
+      <p class="label">Fund your future</p><h2 id="modal-title">Add money</h2>
+      <p class="modal-copy" data-modal-copy>Enter the account details you will use for this deposit.</p>
+      <div class="deposit-member-details" data-member-deposit-details>
+        <label class="amount-label" for="deposit-account-name">Your account name</label>
+        <input class="withdraw-contact" id="deposit-account-name" type="text" placeholder="Name on your account" autocomplete="name" required>
+        <label class="amount-label" for="deposit-account-number">Your account number</label>
+        <input class="withdraw-contact" id="deposit-account-number" type="text" placeholder="Account number" inputmode="numeric" required>
+      </div>
+      <div class="amount-options" hidden>
+        <button type="button" data-amount="100"><strong>GHS 100</strong><small>Deposit amount</small></button>
+        <button type="button" data-amount="250"><strong>GHS 250</strong><small>Deposit amount</small></button>
+        <button type="button" data-amount="500"><strong>GHS 500</strong><small>Deposit amount</small></button>
+        <label class="custom-deposit-amount">Other amount<input data-custom-deposit-amount type="number" min="100" step="0.01" placeholder="Minimum GHS 100"><small>Enter any amount of GHS 100 or more</small></label>
+      </div>
+      <div class="deposit-details" data-deposit-details hidden>
+        <div class="detail-header"><span class="detail-icon">↗</span><span><strong>Deposit account details</strong><small>Use these details for your transfer</small></span></div>
+        <div class="detail-row"><span>Account name</span><strong data-deposit-account>MyGain Investments</strong></div>
+        <div class="detail-row"><span>Routing number</span><strong data-deposit-routing>021000021</strong></div>
+        <div class="detail-row"><span>Account number</span><strong data-deposit-number>•••• 4829</strong></div>
+        <div class="detail-row"><span>Contact</span><strong data-deposit-contact>support@mygain.test</strong></div>
+        <div class="detail-row"><span>Reference</span><strong data-deposit-reference>NS-001</strong></div>
+      </div>
+      <p class="deposit-final-amount" data-deposit-final-amount hidden></p>
+      <button class="confirm-button" type="button" data-confirm>Continue</button>
+      <p class="modal-status" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="modal-backdrop" data-withdraw-modal hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="withdraw-title">
+      <button class="modal-close" type="button" aria-label="Close" data-close-withdraw>×</button>
+      <p class="label">Move money out</p><h2 id="withdraw-title">Request withdrawal</h2>
+      <p class="modal-copy">Withdrawals are reviewed by an administrator before your balance changes.</p>
+          <label class="amount-label" for="withdraw-amount">Withdrawal amount</label><div class="amount-input"><span>GHS</span><input id="withdraw-amount" type="number" min="1" value="50" inputmode="decimal"></div>
+      <label class="amount-label" for="withdraw-account-name">Account name</label><input class="withdraw-contact" id="withdraw-account-name" type="text" placeholder="Name on account" required>
+      <label class="amount-label" for="withdraw-account-number">Account number</label><input class="withdraw-contact" id="withdraw-account-number" type="text" placeholder="Bank account number" inputmode="numeric" required>
+      <button class="confirm-button" type="button" data-submit-withdraw>Submit withdrawal</button>
+      <p class="modal-status" data-withdraw-status aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="modal-backdrop" data-profile-modal hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-title">
+      <button class="modal-close" type="button" aria-label="Close" data-close-profile>×</button>
+      <p class="label">Account settings</p><h2 id="profile-title">Your profile</h2>
+      <p class="modal-copy">Update your nickname and the account used for withdrawals.</p>
+      <label class="amount-label" for="profile-nickname">Nickname</label><input class="withdraw-contact" id="profile-nickname" type="text" maxlength="40" placeholder="Your nickname" required>
+      <label class="amount-label" for="profile-account-name">Withdrawal account name</label><input class="withdraw-contact" id="profile-account-name" type="text" maxlength="80" placeholder="Name on account" required>
+      <label class="amount-label" for="profile-account-number">Withdrawal account number</label><input class="withdraw-contact" id="profile-account-number" type="text" maxlength="40" placeholder="Bank account number" required>
+      <button class="confirm-button" type="button" data-save-profile>Save profile</button>
+      <p class="modal-status" data-profile-status aria-live="polite"></p>
+    </div>
+  </div>
+  <script src="script.js?v=19"></script>
+</body>
+</html>

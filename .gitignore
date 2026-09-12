@@ -1,0 +1,21 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Application data and temporary database files
+/data/db.json
+/data/db.json.tmp
+/data/*.backup
+/data/*.bak
+
+# Logs and local runtime files
+*.log
+npm-debug.log*
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Local editor/OS files
+.vscode/
+.idea/

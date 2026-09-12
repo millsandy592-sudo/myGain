@@ -1,0 +1,13 @@
+.profile-page { min-height: 100vh; background: var(--paper); }
+.profile-shell { width: min(100% - 40px, 1060px); margin: 0 auto; padding: 30px 0 70px; }
+.profile-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.profile-back { color: var(--coral); font-size: 12px; font-weight: 700; text-decoration: none; }
+.profile-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: start; padding: 80px 8%; }
+.profile-intro h1 { margin: 0 0 14px; font-size: clamp(36px, 5vw, 58px); }
+.profile-intro > p:last-of-type { max-width: 330px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.profile-member-card { display: flex; align-items: center; gap: 12px; margin-top: 42px; padding-top: 20px; border-top: 1px solid var(--line); }
+.profile-member-card div { display: grid; gap: 4px; }.profile-member-card strong { font-size: 13px; }.profile-member-card small, .profile-phone-link { color: var(--muted); font-size: 11px; }.profile-phone-link { text-decoration: none; }.profile-phone-link:hover, .profile-phone-link:focus-visible { color: var(--coral); text-decoration: underline; }
+.profile-form { display: grid; gap: 9px; padding: 32px; border-radius: 14px; background: var(--white); box-shadow: var(--shadow); }
+.profile-form label { margin-top: 10px; color: var(--ink); font-size: 11px; font-weight: 700; }.profile-form input { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 6px; outline: 0; color: var(--ink); font-size: 13px; }.profile-form input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-soft); }
+.profile-save { margin-top: 18px; padding: 13px 16px; border-radius: 6px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 700; text-align: left; }.profile-save span { float: right; color: var(--teal); font-size: 17px; line-height: 12px; }.profile-save:disabled { opacity: .6; cursor: wait; }.profile-status { min-height: 18px; margin: 5px 0 0; color: #299b76; font-size: 11px; }
+@media (max-width: 700px) { .profile-shell { width: min(100% - 32px, 560px); padding-top: 20px; }.profile-layout { grid-template-columns: 1fr; gap: 35px; padding: 48px 0 0; }.profile-member-card { margin-top: 28px; }.profile-form { padding: 24px; } }

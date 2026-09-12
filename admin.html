@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyGain Admin | Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <section class="admin-login" data-admin-login>
+    <div class="admin-login-card">
+      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>MyGain</span></a>
+      <p class="eyebrow">Restricted area</p><h1>Admin sign in</h1><p>Use your administrator email and password to manage members and products.</p>
+      <form data-admin-login-form><label>Email address<input name="email" type="email" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="primary-button" type="submit">Sign in to admin</button><small data-admin-login-status></small></form>
+    </div>
+  </section>
+  <div class="admin-shell" data-admin-app hidden>
+    <aside class="admin-sidebar">
+      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>MyGain</span></a>
+      <div class="admin-badge"><span>◆</span> Administration</div>
+      <nav aria-label="Admin navigation">
+        <a class="admin-nav active" href="#products"><span>▦</span> Products</a>
+        <a class="admin-nav" href="#settings"><span>⚙</span> Settings</a>
+        <a class="admin-nav" href="#" data-open-password><span>🔒</span> Change password</a>
+        <a class="admin-nav" href="index.html"><span>↗</span> Member view</a>
+      </nav>
+      <div class="admin-sidebar-footer"><span class="admin-avatar">AD</span><span><strong>Admin</strong><small>MyGain team</small></span></div>
+    </aside>
+    <div class="form-backdrop" data-password-modal hidden>
+      <form class="asset-form" data-password-form>
+        <button class="form-close" type="button" aria-label="Close" data-close-password>×</button>
+        <p class="eyebrow">Account security</p><h2>Change admin password</h2>
+        <div class="form-grid">
+          <label class="full-field">Current password<input name="currentPassword" type="password" autocomplete="current-password" required></label>
+          <label class="full-field">New password (12+ chars, upper, lower, number)<input name="newPassword" type="password" autocomplete="new-password" minlength="12" required></label>
+        </div>
+        <button class="primary-button form-submit" type="submit">Update password</button>
+        <p class="form-status" data-password-status aria-live="polite"></p>
+      </form>
+    </div>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div><p class="eyebrow">Catalog management</p><h1>Investment products</h1><p class="admin-subtitle">Create the assets members can choose from at each investment level.</p></div>
+        <div class="admin-header-actions"><button class="primary-button" type="button" data-open-form><span>+</span> Add asset</button><button class="secondary-button" type="button" data-admin-logout>Log out</button></div>
+      </header>
+
+      <section class="admin-stats" aria-label="Catalog summary">
+        <div class="stat-card"><span class="stat-icon teal">▦</span><span><small>Published assets</small><strong data-asset-count>0</strong></span></div>
+        <div class="stat-card"><span class="stat-icon coral">%</span><span><small>Default daily rate</small><strong><span data-rate-summary>10</span>%</strong></span></div>
+        <div class="stat-card"><span class="stat-icon yellow">↗</span><span><small>Member levels</small><strong>4</strong></span></div>
+      </section>
+
+      <section class="members-section">
+        <div class="section-title"><div><p class="eyebrow">Member directory</p><h2>Registered members</h2></div><span class="catalog-note">Stored securely in the backend database</span></div>
+        <div class="member-directory" data-member-directory></div>
+        <div class="admin-empty" data-members-empty hidden><span>◎</span><strong>No members registered</strong><small>New member accounts will appear here after signup.</small></div>
+      </section>
+
+      <section class="catalog-section" id="products">
+        <div class="section-title"><div><p class="eyebrow">Member catalog</p><h2>Published assets</h2></div><span class="catalog-note">Changes sync to the member view</span></div>
+        <div class="admin-product-list" data-admin-list></div>
+        <div class="admin-empty" data-admin-empty hidden><span>◎</span><strong>No assets published</strong><small>Add your first product to make an investment option available.</small></div>
+      </section>
+
+      <section class="approvals-section" id="approvals">
+        <div class="section-title"><div><p class="eyebrow">Money movement</p><h2>Payment approvals</h2></div><span class="catalog-note">Approve before member balances change</span></div>
+        <div class="approval-list" data-approval-list></div>
+        <div class="admin-empty" data-approval-empty hidden><span>✓</span><strong>No pending requests</strong><small>New deposits and withdrawals will appear here for review.</small></div>
+      </section>
+
+      <section class="vault-admin-section" id="vaults">
+        <div class="section-title"><div><p class="eyebrow">Daily Profit Vaults</p><h2>Vault Management</h2></div><span class="catalog-note" data-vault-admin-date>Server date</span></div>
+        <div class="admin-stats vault-admin-stats"><div class="stat-card"><span class="stat-icon teal">✓</span><span><small>Vaults opened today</small><strong data-admin-vault-total>0</strong></span></div><div class="stat-card"><span class="stat-icon coral">GHS</span><span><small>Profit distributed today</small><strong data-admin-vault-profit>GHS 0.00</strong></span></div><div class="stat-card"><span class="stat-icon yellow">◎</span><span><small>Users opening today</small><strong data-admin-vault-users>0</strong></span></div></div>
+        <p class="catalog-note" data-admin-vault-rate>Daily rate 0% · Each vault 0%</p>
+        <div class="vault-admin-history" data-admin-vault-history><p class="catalog-note">No vaults opened today.</p></div>
+      </section>
+
+      <section class="notification-admin-section">
+        <div class="section-title"><div><p class="eyebrow">Member communication</p><h2>Level notifications</h2></div><span class="catalog-note">Send updates by level</span></div>
+        <form class="notification-form" data-notification-form>
+          <label>Audience<select name="audience"><option value="all">All levels</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option></select></label>
+          <label class="notification-message">Message<textarea name="message" rows="2" placeholder="Write an update for members" required></textarea></label>
+          <button class="primary-button" type="submit">Publish notice</button>
+        </form>
+        <div class="notice-admin-list" data-notice-admin-list></div>
+      </section>
+
+      <section class="info-publisher-section">
+        <div class="section-title"><div><p class="eyebrow">Member information</p><h2>Publish information</h2></div><span class="catalog-note">Shown at the bottom of the member screen</span></div>
+        <form class="info-publisher-form" data-info-form>
+          <label>Audience<select name="audience"><option value="all">All levels</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option></select></label>
+          <label>Title<input name="title" type="text" placeholder="e.g. New investment opportunity" required></label>
+          <label class="info-message">Information<textarea name="message" rows="3" placeholder="Write information for members" required></textarea></label>
+          <label>Image URL <span class="optional">optional</span><input name="imageUrl" type="url" placeholder="https://example.com/image.jpg"></label>
+          <label>Upload image <span class="optional">from your computer</span><input type="file" accept="image/*" data-image-upload="imageUrl"></label>
+          <div class="info-image-preview" data-info-preview><span>Image preview</span></div>
+          <button class="primary-button" type="submit">Publish information</button>
+        </form>
+        <div class="published-info-list" data-published-info></div>
+      </section>
+
+      <section class="settings-section" id="settings">
+        <div><p class="eyebrow">Platform settings</p><h2>Daily profit defaults</h2><p>Set the rate used when a product does not have its own rate.</p></div>
+        <div class="default-rate"><label for="default-rate">Default / testing daily rate</label><div><input id="default-rate" type="number" min="0" step="0.1" value="5"><span>% / day</span><button type="button" class="secondary-button" data-save-default>Save</button></div><small data-settings-status aria-live="polite"></small></div>
+        <div class="default-rate"><label>Referral bonus by purchased level</label><div class="referral-bonus-grid"><label>Level 1<input data-referral-bonus="1" type="number" min="0" step="0.01" value="25"></label><label>Level 2<input data-referral-bonus="2" type="number" min="0" step="0.01" value="50"></label><label>Level 3<input data-referral-bonus="3" type="number" min="0" step="0.01" value="100"></label><label>Level 4<input data-referral-bonus="4" type="number" min="0" step="0.01" value="200"></label></div><button type="button" class="secondary-button" data-save-referral>Save referral bonuses</button><small data-referral-status aria-live="polite"></small></div>
+        <div class="withdrawal-limits"><label>Withdrawal settings per level</label><div class="withdrawal-limit-grid"><label>Level 1 amount<input data-withdrawal-threshold="1" type="number" min="0" step="0.01" value="250"><small>Minimum balance</small><input data-withdrawal-limit="1" type="number" min="0" step="1" value="1"><small>Withdrawals / day</small><input data-withdrawal-interval="1" type="number" min="1" step="1" value="1"><small>Every N days</small></label><label>Level 2 amount<input data-withdrawal-threshold="2" type="number" min="0" step="0.01" value="500"><small>Minimum balance</small><input data-withdrawal-limit="2" type="number" min="0" step="1" value="1"><small>Withdrawals / day</small><input data-withdrawal-interval="2" type="number" min="1" step="1" value="1"><small>Every N days</small></label><label>Level 3 amount<input data-withdrawal-threshold="3" type="number" min="0" step="0.01" value="1000"><small>Minimum balance</small><input data-withdrawal-limit="3" type="number" min="0" step="1" value="1"><small>Withdrawals / day</small><input data-withdrawal-interval="3" type="number" min="1" step="1" value="1"><small>Every N days</small></label><label>Level 4 amount<input data-withdrawal-threshold="4" type="number" min="0" step="0.01" value="2000"><small>Minimum balance</small><input data-withdrawal-limit="4" type="number" min="0" step="1" value="1"><small>Withdrawals / day</small><input data-withdrawal-interval="4" type="number" min="1" step="1" value="1"><small>Every N days</small></label></div><button type="button" class="secondary-button" data-save-withdrawal-limits>Save withdrawal settings</button><small data-withdrawal-limits-status aria-live="polite"></small></div>
+      </section>
+      <section class="background-section">
+        <div><p class="eyebrow">Branding</p><h2>Background images</h2><p>Set the background image shown on the member sign-in screen and the admin panel. Leave blank to use the default gradient.</p></div>
+        <form class="background-form" data-background-form>
+          <label>Member site background URL<input name="backgroundImageUrl" type="url" placeholder="https://example.com/member-bg.jpg"></label>
+          <label>Upload member background <span class="optional">from your computer</span><input type="file" accept="image/*" data-image-upload="backgroundImageUrl"></label>
+          <label>Admin panel background URL<input name="adminBackgroundImageUrl" type="url" placeholder="https://example.com/admin-bg.jpg"></label>
+          <label>Upload admin background <span class="optional">from your computer</span><input type="file" accept="image/*" data-image-upload="adminBackgroundImageUrl"></label>
+          <button class="secondary-button" type="submit">Save backgrounds</button><small data-background-status aria-live="polite"></small>
+        </form>
+      </section>
+      <section class="bonus-section">
+        <div><p class="eyebrow">Manual rewards</p><h2>Give a member a bonus</h2><p>Bonuses are added to the server-side earnings ledger.</p></div>
+        <form class="bonus-form" data-bonus-form><label>Member number<input name="memberNumber" placeholder="e.g. M4821" required></label><label>Bonus amount<input name="amount" type="number" min="0.01" step="0.01" placeholder="25" required></label><label>Reason<input name="reason" placeholder="Loyalty bonus"></label><button class="secondary-button" type="submit">Award bonus</button><small data-bonus-status aria-live="polite"></small></form>
+      </section>
+      <section class="contact-settings">
+        <div><p class="eyebrow">Member deposit instructions</p><h2>Deposit account details</h2><p>These details appear in the member deposit card.</p></div>
+        <form class="contact-form" data-contact-form>
+          <label>Account name<input name="accountName" required></label><label>Routing number<input name="routingNumber" required></label><label>Account number<input name="accountNumber" required></label><label>Support contact<input name="contact" type="text" required></label>
+          <button class="secondary-button" type="submit">Save details</button><small data-contact-status aria-live="polite"></small>
+        </form>
+      </section>
+      <section class="deposit-accounts-section">
+        <div><p class="eyebrow">Member deposit instructions</p><h2>Deposit accounts</h2><p>Add multiple accounts. One is selected randomly for each deposit request.</p></div>
+        <form class="deposit-account-form" data-deposit-account-form>
+          <label>Account name<input name="accountName" required></label><label>Routing number<input name="routingNumber" required></label><label>Account number<input name="accountNumber" required></label><label>Contact<input name="contact" required></label>
+          <button class="secondary-button" type="submit">Add deposit account</button><small data-account-status aria-live="polite"></small>
+        </form>
+        <div class="deposit-account-list" data-deposit-account-list></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="form-backdrop" data-form-modal hidden>
+    <form class="asset-form" data-asset-form>
+      <button class="form-close" type="button" aria-label="Close" data-close-form>×</button>
+      <p class="eyebrow">Catalog editor</p><h2 data-form-title>Add an asset</h2><p class="form-intro">This product will be available to members at the selected level.</p>
+      <div class="form-grid">
+        <label>Asset name<input name="name" type="text" placeholder="e.g. Stability fund" required></label>
+        <label>Asset code<input name="code" type="text" placeholder="e.g. STABILITY" required></label>
+        <label>Member level<select name="level" required><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option></select></label>
+        <label>Deposit amount<input name="amount" type="number" min="1" placeholder="50" required></label>
+        <label>Market ticker <span class="optional">e.g. bitcoin, aapl.us, xauusd</span><input name="tickerSymbol" type="text" placeholder="Leave blank to use manual rate"></label>
+        <label>Market type<select name="assetType"><option value="stock">Stock / index</option><option value="crypto">Crypto</option><option value="commodity">Commodity</option></select></label>
+        <label>Manual / testing daily rate (%)<input name="manualTestRate" type="number" min="0" step="0.1" placeholder="5" required></label>
+        <label>Accent color<input name="color" type="color" value="#dff6eb"></label>
+          <label class="full-field">Asset image URL <span class="optional">optional</span><input name="imageUrl" type="url" placeholder="https://example.com/asset-image.jpg"></label>
+          <label class="full-field">Upload asset image <span class="optional">from your computer</span><input type="file" accept="image/*" data-image-upload="imageUrl"></label>
+      </div>
+      <p class="form-hint">If a market ticker is set, the daily rate updates automatically from that ticker's real 24h price change (capped at 8%). Without a ticker, the manual rate above is used — clearly a testing/fallback figure, not a live market rate.</p>
+      <div class="image-preview" data-image-preview><span>Image preview</span></div>
+      <button class="primary-button form-submit" type="submit" data-form-submit>Publish asset</button>
+      <p class="form-status" data-form-status aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="form-backdrop" data-member-detail-modal hidden>
+    <section class="asset-form member-detail-card" role="dialog" aria-modal="true" aria-labelledby="member-detail-title">
+      <button class="form-close" type="button" aria-label="Close" data-close-member-detail>×</button>
+      <p class="eyebrow">Member account</p><h2 id="member-detail-title" data-member-detail-title>User activity</h2>
+      <p class="form-intro" data-member-detail-summary></p>
+      <div class="member-detail-stats" data-member-detail-stats></div>
+      <h3 class="member-detail-heading">Recent activity</h3>
+      <div class="member-activity-list" data-member-activity-list></div>
+    </section>
+  </div>
+  <div class="admin-toast" data-admin-toast role="status" aria-live="polite"></div>
+  <script src="admin.js?v=4"></script>
+</body>
+</html>
