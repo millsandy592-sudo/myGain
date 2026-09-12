@@ -1,0 +1,467 @@
+{
+  "members": [
+    {
+      "id": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "phone": "0599052924",
+      "memberNumber": "V0666",
+      "passwordSalt": "253f3cb2c3af52f4df728d48f51f627b",
+      "passwordHash": "2bb93b509fb282d1a50ff0c51a98dc959556f230fbb7bb5c7c0199dea6e5eda3b20975cfd0914f1a97ee0a579e6256cd0a42e19e0c5c46ecc5b6f7193dd87164",
+      "nickname": "silly",
+      "withdrawalAccountName": "5676r56e",
+      "withdrawalAccountNumber": "7665443",
+      "referralBonus": 50,
+      "referredMembers": [],
+      "createdAt": 1788729929944
+    }
+  ],
+  "products": [
+    {
+      "id": "foundation",
+      "name": "Foundation fund",
+      "code": "LEVEL 1",
+      "level": 1,
+      "amount": 200,
+      "tickerSymbol": "",
+      "assetType": "manual",
+      "manualTestRate": 10.2,
+      "dailyRate": 10.2,
+      "color": "#dff6eb",
+      "imageUrl": "",
+      "symbol": "F",
+      "rateSource": "manual"
+    },
+    {
+      "id": "growth",
+      "name": "Growth fund",
+      "code": "LEVEL 2",
+      "level": 2,
+      "amount": 400,
+      "tickerSymbol": "",
+      "assetType": "manual",
+      "manualTestRate": 10.2,
+      "dailyRate": 10.2,
+      "color": "#fff0ec",
+      "imageUrl": "",
+      "symbol": "G",
+      "rateSource": "manual"
+    },
+    {
+      "id": "summit",
+      "name": "Summit fund",
+      "code": "LEVEL 4",
+      "level": 4,
+      "amount": 1000,
+      "tickerSymbol": "",
+      "assetType": "manual",
+      "manualTestRate": 10.2,
+      "dailyRate": 10.2,
+      "color": "#e9e6fb",
+      "imageUrl": "",
+      "symbol": "S",
+      "rateSource": "manual"
+    },
+    {
+      "id": "momentum",
+      "name": "Momentum fund",
+      "code": "LEVEL 3",
+      "level": 3,
+      "amount": 800,
+      "tickerSymbol": "",
+      "assetType": "manual",
+      "manualTestRate": 10.2,
+      "dailyRate": 10.2,
+      "color": "#fff6d8",
+      "imageUrl": "",
+      "symbol": "M",
+      "rateSource": "manual"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "f0cd0450-3e6c-44ca-9242-1e38d944fab3",
+      "audience": "all",
+      "message": "Happy news soon",
+      "createdAt": 1788704274233
+    }
+  ],
+  "information": [],
+  "depositAccounts": [],
+  "paymentRequests": [
+    {
+      "id": "deposit-1788731778802",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "deposit",
+      "amount": 100,
+      "depositAccount": {
+        "id": "default-account",
+        "accountName": "MyGain Investments",
+        "routingNumber": "021000021",
+        "accountNumber": "•••• 4829",
+        "contact": "support@mygain.test"
+      },
+      "accountName": "Dan",
+      "accountNumber": "564564564",
+      "status": "approved",
+      "createdAt": 1788731779513,
+      "reviewedAt": 1788731790604,
+      "approvedAt": 1788731790604,
+      "dailyRate": 10.2
+    },
+    {
+      "id": "deposit-1788732001140",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "deposit",
+      "amount": 100,
+      "depositAccount": {
+        "id": "default-account",
+        "accountName": "MyGain Investments",
+        "routingNumber": "021000021",
+        "accountNumber": "•••• 4829",
+        "contact": "support@mygain.test"
+      },
+      "accountName": "Txdffv",
+      "accountNumber": "254256251",
+      "status": "approved",
+      "createdAt": 1788732001833,
+      "reviewedAt": 1788732008136,
+      "approvedAt": 1788732008136,
+      "dailyRate": 10.2
+    },
+    {
+      "id": "deposit-1788732325094",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "deposit",
+      "amount": 100,
+      "depositAccount": {
+        "id": "default-account",
+        "accountName": "MyGain Investments",
+        "routingNumber": "021000021",
+        "accountNumber": "•••• 4829",
+        "contact": "support@mygain.test"
+      },
+      "accountName": "Fffffff",
+      "accountNumber": "255880",
+      "status": "approved",
+      "createdAt": 1788732325806,
+      "reviewedAt": 1788732334773,
+      "approvedAt": 1788732334773,
+      "dailyRate": 10.2
+    },
+    {
+      "id": "withdrawal-1788732349958",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "withdrawal",
+      "amount": 50,
+      "accountName": "Yuuhhh",
+      "accountNumber": "22558800",
+      "status": "approved",
+      "createdAt": 1788732350671,
+      "reviewedAt": 1788732431423,
+      "approvedAt": 1788732431423
+    }
+  ],
+  "sessions": [
+    {
+      "token": "f0d5d94cfdd3ff4da09955138fa32322620130ea4707792dd3f6afb05edb1a2d",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "expiresAt": 1789821641377
+    },
+    {
+      "token": "66452eb6962b02a8f80462666cc62d8f372fcdb5ffcd3958cbcfa7593fe78712",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "expiresAt": 1789822222169
+    }
+  ],
+  "settings": {
+    "dailyProfitPercent": 10.2,
+    "referralBonusAmount": 25,
+    "backgroundImageUrl": "",
+    "adminBackgroundImageUrl": "",
+    "withdrawalLimits": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "referralBonuses": {
+      "1": 25,
+      "2": 50,
+      "3": 100,
+      "4": 200
+    },
+    "withdrawalThresholds": {
+      "1": 100,
+      "2": 200,
+      "3": 400,
+      "4": 500
+    },
+    "withdrawalIntervals": {
+      "1": 7,
+      "2": 4,
+      "3": 4,
+      "4": 4
+    },
+    "timeZone": "Africa/Accra"
+  },
+  "admins": [
+    {
+      "id": "7292a637-832f-4a29-a40d-786035eb2744",
+      "email": "bamso11@gmail.com",
+      "passwordSalt": "215c7d45192d5e0c1c6d2d250e3ad5f6",
+      "passwordHash": "3d9d2d6d1efe33378ce787c8d97b1b3e2fa98878271992f31a9f073c8878b7ae8302a918d0a45deeff927a8d6d095d6f6c95adfad9aa463c2afeca316d4f5035",
+      "createdAt": 1788673396026
+    }
+  ],
+  "adminSessions": [
+    {
+      "token": "c66d12448f8124ff31bef6d3b847b853e2cebe597f4260790b4c0dfcf88d7561",
+      "adminId": "7292a637-832f-4a29-a40d-786035eb2744",
+      "expiresAt": 1789246012327
+    }
+  ],
+  "levelPurchases": [
+    {
+      "id": "41c962a2-5af6-4231-b8f6-ab95a33f8d51",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "planNumber": 1,
+      "level": 1,
+      "assetName": "Foundation fund",
+      "amount": 200,
+      "dailyRate": 10.2,
+      "purchasedAt": 1788732200952
+    }
+  ],
+  "bonuses": [
+    {
+      "id": "947a9cd9-ea85-488d-b382-fb54198c867f",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "amount": 50,
+      "reason": "Referral reward · A0380 first Level 2 purchase",
+      "createdAt": 1788731424212
+    }
+  ],
+  "vaultOpenings": [
+    {
+      "id": "d4114896-c35c-4a8a-8d4b-6d523417a147",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 1,
+      "vaultDate": "2026-09-07",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1788766611933
+    },
+    {
+      "id": "dcc14fb9-9bbe-482e-bc2f-1a1a70d2ff4b",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 2,
+      "vaultDate": "2026-09-07",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1788766625237
+    },
+    {
+      "id": "c690dd4a-6000-4970-981b-e813199a774e",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 3,
+      "vaultDate": "2026-09-07",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1788766631939
+    },
+    {
+      "id": "2780c7f2-1ad4-442c-96ee-72f89803fc1f",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 4,
+      "vaultDate": "2026-09-07",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1788766633432
+    },
+    {
+      "id": "c4dfc1ec-6eec-4294-8d73-3e388fde2338",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 5,
+      "vaultDate": "2026-09-07",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1788766635291
+    },
+    {
+      "id": "fb705a26-34e4-48f6-957d-596b0c3e49b1",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 1,
+      "vaultDate": "2026-09-12",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1789205435025
+    },
+    {
+      "id": "5a5914ed-9f93-4ba6-90d0-449a5ee6ce93",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 2,
+      "vaultDate": "2026-09-12",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1789205436439
+    },
+    {
+      "id": "f75fb744-2faa-47d5-9cc9-49e26d14ec34",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 3,
+      "vaultDate": "2026-09-12",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1789205437922
+    },
+    {
+      "id": "9c3e81ba-517c-46de-90c8-a99afda40774",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 4,
+      "vaultDate": "2026-09-12",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1789205439766
+    },
+    {
+      "id": "a96f4256-a839-4041-8228-a24bba590b8a",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "vaultNumber": 5,
+      "vaultDate": "2026-09-12",
+      "dailyRate": 10.2,
+      "vaultRate": 2.04,
+      "eligibleBalance": 300,
+      "rewardAmount": 4.08,
+      "createdAt": 1789205441215
+    }
+  ],
+  "profitTransactions": [
+    {
+      "id": "61585f45-6156-4b8c-a672-dbfd7eede5e9",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "d4114896-c35c-4a8a-8d4b-6d523417a147",
+      "vaultNumber": 1,
+      "vaultDate": "2026-09-07",
+      "amount": 4.08,
+      "createdAt": 1788766611933
+    },
+    {
+      "id": "869e63b1-5636-41c0-8b06-c61220a5ce90",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "dcc14fb9-9bbe-482e-bc2f-1a1a70d2ff4b",
+      "vaultNumber": 2,
+      "vaultDate": "2026-09-07",
+      "amount": 4.08,
+      "createdAt": 1788766625237
+    },
+    {
+      "id": "a78a5b7f-2ac6-4048-9eee-753309dacaab",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "c690dd4a-6000-4970-981b-e813199a774e",
+      "vaultNumber": 3,
+      "vaultDate": "2026-09-07",
+      "amount": 4.08,
+      "createdAt": 1788766631939
+    },
+    {
+      "id": "fbb3c235-10d5-4cc4-ae2e-455a564eefa8",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "2780c7f2-1ad4-442c-96ee-72f89803fc1f",
+      "vaultNumber": 4,
+      "vaultDate": "2026-09-07",
+      "amount": 4.08,
+      "createdAt": 1788766633432
+    },
+    {
+      "id": "1cc02598-5bce-44a6-b72e-b0ecd58e377b",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "c4dfc1ec-6eec-4294-8d73-3e388fde2338",
+      "vaultNumber": 5,
+      "vaultDate": "2026-09-07",
+      "amount": 4.08,
+      "createdAt": 1788766635291
+    },
+    {
+      "id": "4a2f87ac-0221-4a16-9e90-adf2728104ac",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "fb705a26-34e4-48f6-957d-596b0c3e49b1",
+      "vaultNumber": 1,
+      "vaultDate": "2026-09-12",
+      "amount": 4.08,
+      "createdAt": 1789205435025
+    },
+    {
+      "id": "0b7705a8-a05d-4fd2-9415-57bc1f87114b",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "5a5914ed-9f93-4ba6-90d0-449a5ee6ce93",
+      "vaultNumber": 2,
+      "vaultDate": "2026-09-12",
+      "amount": 4.08,
+      "createdAt": 1789205436439
+    },
+    {
+      "id": "24fe109a-db9a-47b0-b877-a403b039baca",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "f75fb744-2faa-47d5-9cc9-49e26d14ec34",
+      "vaultNumber": 3,
+      "vaultDate": "2026-09-12",
+      "amount": 4.08,
+      "createdAt": 1789205437922
+    },
+    {
+      "id": "d71fa5b0-8e66-498d-b6bd-0405a60b43cd",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "9c3e81ba-517c-46de-90c8-a99afda40774",
+      "vaultNumber": 4,
+      "vaultDate": "2026-09-12",
+      "amount": 4.08,
+      "createdAt": 1789205439766
+    },
+    {
+      "id": "bc5369a8-618c-43dd-8799-e0d7d349ed1a",
+      "memberId": "9eda2123-bf60-4e78-a0cb-923861fb876a",
+      "type": "profit",
+      "source": "vault",
+      "vaultOpeningId": "a96f4256-a839-4041-8228-a24bba590b8a",
+      "vaultNumber": 5,
+      "vaultDate": "2026-09-12",
+      "amount": 4.08,
+      "createdAt": 1789205441215
+    }
+  ]
+}
