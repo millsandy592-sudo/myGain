@@ -56,7 +56,7 @@ const localWithdrawalSettings = {
   intervals: { 1: 1, 2: 1, 3: 1, 4: 1 },
 };
 const customDepositAmount = document.querySelector('[data-custom-deposit-amount]');
-let depositStep = 'member-details';
+let depositStep = 'amount';
 let toastTimer;
 const settingsKey = 'northstarAdminSettings';
 const notificationsKey = 'northstarNotifications';
@@ -317,9 +317,12 @@ async function loadMemberPaymentRequests() {
   const response = await fetch('/api/me/payment-requests', { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' });
   if (!response.ok) return;
   const result = await response.json();
+  const previousStatuses = new Map(paymentRequests.map((request) => [request.id, request.status]));
   paymentRequests = result.requests || [];
   renderPendingRequests();
   renderPlanTransactions();
+  const paymentStatusChanged = paymentRequests.some((request) => previousStatuses.get(request.id) && previousStatuses.get(request.id) !== request.status);
+  if (paymentStatusChanged) await loadServerEarnings();
 }
 
 function renderNotifications() {
@@ -638,8 +641,8 @@ authForm.addEventListener('submit', async (event) => {
     document.querySelector('#member-password').focus();
     return;
   }
-  if (authMode === 'signup' && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/.test(password)) {
-    passwordError.textContent = 'Use at least 12 characters with uppercase, lowercase, and a number.';
+  if (authMode === 'signup' && password.length < 8) {
+    passwordError.textContent = 'Use at least 8 characters.';
     document.querySelector('#member-password').focus();
     return;
   }
@@ -736,13 +739,13 @@ function showFeedback(message) {
 }
 
 function updateConfirmLabel() {
-  confirmButton.textContent = depositStep === 'member-details' || depositStep === 'admin-details' ? 'Continue' : 'Confirm deposit';
+  confirmButton.textContent = depositStep === 'member-details' || depositStep === 'admin-details' ? 'Continue' : depositStep === 'amount' ? 'Review deposit' : 'Confirm payment';
 }
 
 function openModal() {
-  depositStep = 'member-details';
-  modalTitle.textContent = 'Add money';
-  modalCopy.textContent = 'Enter the account details you will use for this deposit.';
+  depositStep = 'amount';
+  modalTitle.textContent = 'Choose deposit amount';
+  modalCopy.textContent = 'Choose the amount you want to deposit.';
   document.querySelector('#deposit-account-name').value = '';
   document.querySelector('#deposit-account-number').value = '';
   activeDepositAccount = depositAccounts[Math.floor(Math.random() * depositAccounts.length)] || defaultDepositAccounts[0];
@@ -752,8 +755,8 @@ function openModal() {
   document.querySelector('[data-deposit-contact]').textContent = activeDepositAccount.contact;
   document.querySelector('[data-deposit-reference]').textContent = activeDepositAccount.id.slice(-6).toUpperCase();
   depositDetails.hidden = true;
-  memberDepositDetails.hidden = false;
-  document.querySelector('.amount-options').hidden = true;
+  memberDepositDetails.hidden = true;
+  document.querySelector('.amount-options').hidden = false;
   depositFinalAmount.hidden = true;
   customDepositAmount.value = '';
   confirmButton.disabled = false;
@@ -767,6 +770,24 @@ function openModal() {
   updateConfirmLabel();
   modal.hidden = false;
 }
+
+document.querySelector('[data-copy-deposit-number]').addEventListener('click', async (event) => {
+  const accountNumber = activeDepositAccount?.accountNumber || document.querySelector('[data-deposit-number]').textContent;
+  try {
+    if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(accountNumber);
+    else {
+      const copyInput = document.createElement('input');
+      copyInput.value = accountNumber;
+      document.body.appendChild(copyInput);
+      copyInput.select();
+      document.execCommand('copy');
+      copyInput.remove();
+    }
+    event.currentTarget.textContent = 'Copied';
+    showFeedback('Deposit account number copied.');
+    setTimeout(() => { event.currentTarget.textContent = 'Copy'; }, 1600);
+  } catch { showFeedback('Unable to copy the account number.'); }
+});
 
 function closeModal() {
   modal.hidden = true;
@@ -843,7 +864,12 @@ document.querySelector('[data-submit-withdraw]').addEventListener('click', async
   await loadMemberPaymentRequests();
   status.textContent = 'Withdrawal submitted for admin approval.';
 });
-setInterval(() => loadMemberPaymentRequests().catch(() => {}), 2000);
+let memberPaymentSyncActive = false;
+setInterval(async () => {
+  if (memberPaymentSyncActive) return;
+  memberPaymentSyncActive = true;
+  try { await loadMemberPaymentRequests(); } catch {} finally { memberPaymentSyncActive = false; }
+}, 1000);
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !modal.hidden) closeModal();
@@ -909,12 +935,23 @@ confirmButton.addEventListener('click', async () => {
     return;
   }
   if (depositStep === 'admin-details') {
-    depositStep = 'amount';
-    modalTitle.textContent = 'Choose deposit amount';
-    modalCopy.textContent = 'Select the amount you are depositing now. You will confirm it on the next step.';
-    depositDetails.hidden = true;
-    document.querySelector('.amount-options').hidden = false;
-    confirmButton.disabled = true;
+    depositStep = 'confirm';
+    modalTitle.textContent = 'Confirm your payment';
+    modalCopy.textContent = `I have sent ${formatCurrency(selectedDeposit)} to the deposit account.`;
+    depositFinalAmount.hidden = false;
+    depositFinalAmount.textContent = `I have sent ${formatCurrency(selectedDeposit)} to the deposit account.`;
+    updateConfirmLabel();
+    return;
+  }
+
+  if (depositStep === 'amount') {
+    depositStep = 'member-details';
+    modalTitle.textContent = 'Your account details';
+    modalCopy.textContent = 'Enter the account details you will use for this deposit.';
+    document.querySelector('.amount-options').hidden = true;
+    memberDepositDetails.hidden = false;
+    depositFinalAmount.hidden = true;
+    confirmButton.disabled = false;
     updateConfirmLabel();
     return;
   }

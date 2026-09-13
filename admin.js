@@ -127,7 +127,7 @@ adminLoginForm.addEventListener('submit', async (event) => {
   loadMembers().catch(() => {});
   loadSettingsIntoForms().catch(() => {});
   loadDepositAccounts().catch(() => {});
-  setInterval(() => loadPaymentRequests().catch(() => {}), 2000);
+  setInterval(() => loadPaymentRequests().catch(() => {}), 1000);
   setInterval(() => loadVaultDashboard().catch(() => {}), 5000);
   setInterval(() => loadMembers().catch(() => {}), 5000);
 });
@@ -140,7 +140,7 @@ if (sessionStorage.getItem('mygainAdminToken')) {
   loadMembers().catch(() => {});
   loadSettingsIntoForms().catch(() => {});
   loadDepositAccounts().catch(() => {});
-  setInterval(() => loadPaymentRequests().catch(() => {}), 2000);
+  setInterval(() => loadPaymentRequests().catch(() => {}), 1000);
   setInterval(() => loadVaultDashboard().catch(() => {}), 5000);
 }
 
@@ -255,18 +255,36 @@ function renderPublishedInfo() {
 async function updateRequest(id, status) {
   const request = requests.find((item) => item.id === id);
   if (!request) return;
-  const response = await adminApi(`/api/payment-requests/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) });
-  if (!response.ok) { showToast('Unable to update this payment request.'); return; }
-  request.status = status;
-  request.reviewedAt = Date.now();
-  if (status === 'approved' && request.type === 'withdrawal') {
-    const withdrawals = JSON.parse(localStorage.getItem('northstarApprovedWithdrawals') || '[]');
-    withdrawals.push(request);
-    localStorage.setItem('northstarApprovedWithdrawals', JSON.stringify(withdrawals));
+  const actionButton = approvalList.querySelector(`[data-${status === 'approved' ? 'approve' : 'reject'}="${id}"]`);
+  const actionButtons = approvalList.querySelectorAll(`[data-approve="${id}"], [data-reject="${id}"]`);
+  actionButtons.forEach((button) => { button.disabled = true; });
+  if (actionButton) actionButton.textContent = status === 'approved' ? 'Approving...' : 'Rejecting...';
+  try {
+    const response = await adminApi(`/api/payment-requests/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok && result.request?.status !== status) throw new Error(result.error || 'Unable to update this payment request.');
+    if (!response.ok && result.request?.status === status) {
+      request.status = result.request.status;
+      request.reviewedAt = result.request.reviewedAt || request.reviewedAt;
+      renderApprovals();
+      showToast(`${request.type === 'deposit' ? 'Deposit' : 'Withdrawal'} already ${status}.`);
+      return;
+    }
+    request.status = result.request?.status || status;
+    request.reviewedAt = result.request?.reviewedAt || Date.now();
+    if (status === 'approved' && request.type === 'withdrawal') {
+      const withdrawals = JSON.parse(localStorage.getItem('northstarApprovedWithdrawals') || '[]');
+      withdrawals.push(request);
+      localStorage.setItem('northstarApprovedWithdrawals', JSON.stringify(withdrawals));
+    }
+    localStorage.setItem(requestKey, JSON.stringify(requests));
+    renderApprovals();
+    showToast(`${request.type === 'deposit' ? 'Deposit' : 'Withdrawal'} ${status}.`);
+  } catch (error) {
+    actionButtons.forEach((button) => { button.disabled = false; });
+    if (actionButton) actionButton.textContent = status === 'approved' ? 'Approve' : 'Reject';
+    showToast(error.message || 'Unable to update this payment request.');
   }
-  localStorage.setItem(requestKey, JSON.stringify(requests));
-  renderApprovals();
-  showToast(`${request.type === 'deposit' ? 'Deposit' : 'Withdrawal'} ${status}.`);
 }
 
 approvalList.addEventListener('click', (event) => {

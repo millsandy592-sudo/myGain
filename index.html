@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
   <section class="auth-screen" data-auth-screen>
@@ -33,7 +33,7 @@
           <input id="member-phone" type="tel" placeholder="5551234567" autocomplete="tel" inputmode="numeric" pattern="[0-9]{10}" minlength="10" maxlength="10" aria-describedby="phone-error" required>
           <small class="field-error" id="phone-error" data-phone-error></small>
           <label for="member-password">Password</label>
-          <div class="password-field"><input id="member-password" type="password" placeholder="12+ characters, upper, lower, number" autocomplete="current-password" minlength="12" aria-describedby="password-error" required><button type="button" aria-label="Show password" data-toggle-password>Show</button></div>
+          <div class="password-field"><input id="member-password" type="password" placeholder="At least 8 characters" autocomplete="current-password" minlength="8" aria-describedby="password-error" required><button type="button" aria-label="Show password" data-toggle-password>Show</button></div>
           <small class="field-error" id="password-error" data-password-error></small>
           <label for="referral-code" data-referral-label hidden>Referral code <span class="optional-auth">optional</span></label>
           <input id="referral-code" type="text" placeholder="e.g. M4821" autocomplete="off" data-referral-input hidden>
@@ -273,7 +273,7 @@
         <div class="detail-header"><span class="detail-icon">↗</span><span><strong>Deposit account details</strong><small>Use these details for your transfer</small></span></div>
         <div class="detail-row"><span>Account name</span><strong data-deposit-account>MyGain Investments</strong></div>
         <div class="detail-row"><span>Routing number</span><strong data-deposit-routing>021000021</strong></div>
-        <div class="detail-row"><span>Account number</span><strong data-deposit-number>•••• 4829</strong></div>
+        <div class="detail-row"><span>Account number</span><span class="detail-value"><strong data-deposit-number>•••• 4829</strong><button class="copy-detail-button" type="button" data-copy-deposit-number aria-label="Copy deposit account number">Copy</button></span></div>
         <div class="detail-row"><span>Contact</span><strong data-deposit-contact>support@mygain.test</strong></div>
         <div class="detail-row"><span>Reference</span><strong data-deposit-reference>NS-001</strong></div>
       </div>
@@ -306,6 +306,6 @@
       <p class="modal-status" data-profile-status aria-live="polite"></p>
     </div>
   </div>
-  <script src="script.js?v=19"></script>
+  <script src="script.js?v=20"></script>
 </body>
 </html>

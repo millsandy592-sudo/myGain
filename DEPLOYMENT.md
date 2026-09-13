@@ -105,6 +105,8 @@ If starting from an empty database, set `MYGAIN_ADMIN_EMAIL` and `MYGAIN_ADMIN_P
 
 After deployment, use the admin panel's password-change feature to rotate the initial password if appropriate.
 
+When publishing frontend changes, update the query-string versions on shared CSS and JavaScript assets in the HTML files. This forces browsers and CDNs to load the current features instead of an older cached bundle.
+
 ## 10. Deposit account configuration
 
 The current data snapshot does not contain a configured production deposit account. The member UI therefore still has the existing fallback/test presentation.

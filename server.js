@@ -581,7 +581,7 @@ async function api(request, response, pathname) {
   if (request.method === 'POST' && pathname === '/api/auth/signup') {
     const body = await parseBody(request);
     const phone = normalizePhone(body.phone);
-    if (!/^\d{10}$/.test(phone) || typeof body.password !== 'string' || body.password.length > 256 || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}/.test(body.password)) return json(response, 400, { error: 'Use a 10-digit phone number and a 12+ character password with uppercase, lowercase, a number, and a symbol.' });
+    if (!/^\d{10}$/.test(phone) || typeof body.password !== 'string' || body.password.length < 8 || body.password.length > 256) return json(response, 400, { error: 'Use a 10-digit phone number and a password of at least 8 characters.' });
     if (db.members.some((member) => normalizePhone(member.phone) === phone)) return json(response, 409, { error: 'That phone number already has an account.' });
     const referral = boundedString(body.referralCode, 20).toUpperCase();
     const referrer = db.members.find((member) => member.memberNumber === referral);
@@ -845,7 +845,8 @@ async function api(request, response, pathname) {
     const item = db.paymentRequests.find((requestItem) => requestItem.id === id);
     if (!item || !['approved', 'rejected'].includes(body.status)) return json(response, 404, { error: 'Request not found.' });
     const previousStatus = item.status;
-    if (previousStatus !== 'pending') return json(response, 409, { error: 'This payment request has already been reviewed.' });
+    if (previousStatus === body.status) return json(response, 200, { request: item });
+    if (previousStatus !== 'pending') return json(response, 409, { error: 'This payment request has already been reviewed.', request: item });
     item.status = body.status;
     item.reviewedAt = Date.now();
     if (body.status === 'approved' && previousStatus !== 'approved') {
